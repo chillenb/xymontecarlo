@@ -4,8 +4,7 @@ xymontecarlo
 
 The XY model is one of many, many models describing a lattice of interacting spins. Unlike the Ising model, it considers spins that may point along any direction in the plane. The Hamiltonian of this model is
 
-$$H = -J \sum_{\langle i, j \rangle} \mathbf{s}_i \cdot \mathbf{s}_j = -J \sum_{\langle i, j \rangle} \cos(\theta_i - \theta_j)
-$$
+$$H = -J \sum_{\langle i, j \rangle} \mathbf{s}_i \cdot \mathbf{s}_j = \sum _{\langle i, j \rangle}\cos(\theta_i - \theta_j)$$
 
 where the sum is over all nearest neighbor pairs $i,j$, with each pair counted once. The XY model famously has a phase transition where bound vortex pairs dissociate above the critical temperature. It was named the BKT transition after Vadim Berezinskii, John Kosterlitz, and David Thouless.
 
