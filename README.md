@@ -29,4 +29,15 @@ From $\langle E \rangle$ as a function of $T$, the heat capacity can be approxim
 ![results](Figure_1.svg)
 
 
+## To run the code
+
+After cloning this repository, type `pip install -e .` to set up the package in your Python environment.
+
+Then you can run the sampling procedure with `python -m xymontecarlo.xymc`. This will generate the above figure if allowed to run to completion.
+
+(Probably you should run `pip uninstall xymontecarlo` when you are done)
+
+
+
+
 [1] Tobochnik, J.; Chester, G. V. Monte Carlo Study of the Planar Spin Model. *Physical Review B* **1979**, *20* (9), 3761–3769. DOI:10.1103/physrevb.20.3761. 
