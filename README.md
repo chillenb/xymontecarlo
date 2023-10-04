@@ -1,4 +1,4 @@
-xymontecarlo
+Specific heat of the two dimensional XY model
 ==============
 
 
