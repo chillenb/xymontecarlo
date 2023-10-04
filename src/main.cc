@@ -2,6 +2,7 @@
 
 #define STRINGIFY(x) #x
 #define MACRO_STRINGIFY(x) STRINGIFY(x)
+#include "model.h"
 
 int add(int i, int j) {
     return i + j;
@@ -14,7 +15,7 @@ PYBIND11_MODULE(_core, m) {
         Pybind11 example plugin
         -----------------------
 
-        .. currentmodule:: scikit_build_example
+        .. currentmodule:: xymontecarlo
 
         .. autosummary::
            :toctree: _generate
@@ -22,18 +23,13 @@ PYBIND11_MODULE(_core, m) {
            add
            subtract
     )pbdoc";
+    py::class_<Model>(m, "Model")
+        .def(py::init<Real, Real>())
+        .def("makepass", &Model::makepass)
+        .def("makepasses", &Model::makepasses)
+        .def_readwrite("approx_angle", &Model::approx_angle);
 
-    m.def("add", &add, R"pbdoc(
-        Add two numbers
-
-        Some other explanation about the add function.
-    )pbdoc");
-
-    m.def("subtract", [](int i, int j) { return i - j; }, R"pbdoc(
-        Subtract two numbers
-
-        Some other explanation about the subtract function.
-    )pbdoc");
+    m.def("nn_cos_sum", &nn_cos_sum);
 
 #ifdef VERSION_INFO
     m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);
