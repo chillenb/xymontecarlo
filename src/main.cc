@@ -25,11 +25,8 @@ PYBIND11_MODULE(_core, m) {
     )pbdoc";
     py::class_<Model>(m, "Model")
         .def(py::init<Real, Real>())
-        .def("makepass", &Model::makepass)
         .def("makepasses", &Model::makepasses)
-        .def_readwrite("approx_angle", &Model::approx_angle);
-
-    m.def("nn_cos_sum", &nn_cos_sum);
+        .def("makepass", &Model::makepass);
 
 #ifdef VERSION_INFO
     m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);

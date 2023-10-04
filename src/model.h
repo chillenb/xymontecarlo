@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <vector>
 #include <cmath>
 #include <iostream>
@@ -15,44 +14,6 @@ namespace py = pybind11;
 using std::vector;
 
 typedef float Real;
-
-static inline Real twopicos(Real x) {
-    return cos(x * 2 * M_PI);
-}
-
-
-Real nn_cos_sum(py::array_t<Real> spins) {
-    auto rspins = spins.unchecked<2>();
-    Real sum = 0;
-    for(py::ssize_t i = 0; i < rspins.shape(0); i++) {
-        for(py::ssize_t j = 0; j < rspins.shape(1); j++) {
-            Real s = rspins(i, j);
-            Real s1 = rspins(i, (j + 1) % rspins.shape(1));
-            Real s2 = rspins((i + 1) % rspins.shape(0), j);
-            Real s3 = rspins(i, (j - 1 + rspins.shape(1)) % rspins.shape(1));
-            Real s4 = rspins((i - 1 + rspins.shape(0)) % rspins.shape(0), j);
-            sum += twopicos(s - s1) + twopicos(s - s2) + twopicos(s - s3) + twopicos(s - s4);
-        }
-    }
-    return sum;
-}
-
-
-Real sumfunc(py::array_t<Real> spins, Real(*func)(Real, Real, Real, Real, Real)) {
-    auto rspins = spins.unchecked<2>();
-    Real sum = 0;
-    for(py::ssize_t i = 0; i < rspins.shape(0); i++) {
-        for(py::ssize_t j = 0; j < rspins.shape(1); j++) {
-            Real s = rspins(i, j);
-            Real s1 = rspins(i, (j + 1) % rspins.shape(1));
-            Real s2 = rspins((i + 1) % rspins.shape(0), j);
-            Real s3 = rspins(i, (j - 1 + rspins.shape(1)) % rspins.shape(1));
-            Real s4 = rspins((i - 1 + rspins.shape(0)) % rspins.shape(0), j);
-            sum += func(s, s1, s2, s3, s4);
-        }
-    }
-    return sum;
-}
 
 class Model {
     public:
