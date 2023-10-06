@@ -22,11 +22,21 @@ $$\alpha \leftarrow \alpha \times  (0.5 + \textrm{previous mean acceptance ratio
 
 although this seems not to work when $k_B T / J > 2$, because there is less local order. The sampling code is written in C++, but everything else is Python.
 
-After random initialization, the system is set to a temperature of $T = 2.5 J/k_B$ and is allowed to burn in for 3000 sweeps. The energy is then averaged for 10000 sweeps (once per sweep) before the system is cooled to the next temperature, allowed to relax for 1000 sweeps, and so on.
+After random initialization, the system is set to a temperature of $T = 2.5 J/k_B$ and is allowed to burn in for 3000 sweeps. The energy is then averaged for 10000 sweeps (once per sweep) before the system is cooled to the next temperature, allowed to relax for 1000 sweeps, and so on. The following figure shows microstates sampled at a range of temperatures beginning above $T=2$ and ending at $T=0.01$.
 
-From $\langle E \rangle$ as a function of $T$, the heat capacity can be approximated with a finite difference. Below I show plots of the average energy per spin and the specific heat capacity versus temperature. These plots agree qualitatively with [1]. There is an interesting peak in the specific heat curve. It is not the BKT transition and I have not yet found an easy explanation for it in the literature.
+
+![examples](Figure_2.svg)
+
+
+Once averages of energy traces are obtained at 30 temperature points, the specific heat capacity can be approximated with a simple forward difference as
+$$c(T) \approx \frac{E(T) - E(T - \Delta T)}{N \Delta T}$$
+where $\Delta T$ is the spacing of the temperature grid and $N$ is the number of spins in the lattice.
+Below I show plots of the average energy per spin and the specific heat capacity versus temperature. These plots agree qualitatively with [1], although neither the average energies nor the heat capacity estimates are an exact match. There is an interesting peak in the specific heat curve near $T=1$. It is not the BKT transition and I have not yet found an easy explanation for it in the literature.
 
 ![results](Figure_1.svg)
+
+## Room for improvement
+I have not searched for more efficient sampling algorithms in the literature, although many must certainly exist. I also have not investigated the quantitative differences between these results and those of [1] and more modern calculations such as [2], and would not trust my code until these are understood.
 
 
 ## To run the code
@@ -40,4 +50,6 @@ Then you can run the sampling procedure with `python -m xymontecarlo.xymc`. This
 
 
 
-[1] Tobochnik, J.; Chester, G. V. Monte Carlo Study of the Planar Spin Model. *Physical Review B* **1979**, *20* (9), 3761–3769. DOI:10.1103/physrevb.20.3761. 
+[1] Tobochnik, J.; Chester, G. V. Monte Carlo Study of the Planar Spin Model. *Physical Review B* **1979**, *20* (9), 3761–3769. https://doi.org/10.1103/physrevb.20.3761.
+
+[2] Nguyen, P.H.; Boninsegni, M. Superfluid Transition and Specific Heat of the 2D x-y Model: Monte Carlo Simulation. *Appl. Sci.* **2021**, *11*, 4931. https://doi.org/10.3390/app11114931
